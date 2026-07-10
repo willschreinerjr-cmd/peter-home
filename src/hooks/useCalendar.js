@@ -139,11 +139,11 @@ async function fetchIcs(url) {
   const proxy = settings.corsProxy ?? ''
 
   if (proxy) {
-    const res  = await fetch(`${proxy}${encodeURIComponent(url)}`)
+    const res = await fetch(`${proxy}${encodeURIComponent(url)}`)
     if (!res.ok) throw new Error(`iCal proxy error ${res.status}`)
-    // allorigins returns { contents: '...' }
-    const json = await res.json()
-    return json.contents ?? json
+    const text = await res.text()
+    // allorigins wraps in JSON; corsproxy.io returns plain text
+    try { const j = JSON.parse(text); return j.contents ?? text } catch { return text }
   }
 
   const res = await fetch(url)

@@ -87,7 +87,7 @@ export const settings = {
   appleCalendarIcsUrl: 'https://p171-caldav.icloud.com/published/2/MTA3MzYyNTc1OTExMDczNpLrUGlDkWQwX2-J4cj4M8k7upMj929jA4d0MjsrZTCMfvaKjhWJ8mbYSunFn8E2pHDEX_526Clze2yvam5K04A',
 
   // CORS Proxy (required for iCal — browser can't fetch iCloud directly).
-  corsProxy: 'https://api.allorigins.win/get?url=',
+  corsProxy: 'https://corsproxy.io/?url=',
 
   // ── GOOGLE CALENDAR ──────────────────────────────────────────
   // STEP 1: Read the "Google Calendar Setup" section in README.md.

@@ -44,6 +44,22 @@ export function useEffectivePhotos() {
   return settings.photos ?? []
 }
 
+// Convenience: resolve effective tasks list (data.json overrides settings.js)
+export function useEffectiveTasks() {
+  const { data, loading } = useDashboardData()
+  if (loading) return settings.defaultTasks ?? []
+  if (Array.isArray(data.tasks) && data.tasks.length > 0) return data.tasks
+  return settings.defaultTasks ?? []
+}
+
+// Convenience: resolve effective chores list (data.json overrides settings.js)
+export function useEffectiveChores() {
+  const { data, loading } = useDashboardData()
+  if (loading) return settings.chores ?? []
+  if (Array.isArray(data.chores) && data.chores.length > 0) return data.chores
+  return settings.chores ?? []
+}
+
 // ── GitHub API write (used by mobile editor) ──────────────────────────────────
 
 /**

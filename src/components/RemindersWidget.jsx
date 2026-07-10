@@ -14,7 +14,7 @@
 import dayjs from 'dayjs'
 import { Card, CardHeader, GoldDivider } from './Card'
 import { AutoScroll } from './AutoScroll'
-import { settings } from '../config/settings'
+import { useEffectiveChores } from '../hooks/useDashboardData'
 
 // ── Schedule logic ─────────────────────────────────────────────────────────────
 
@@ -145,7 +145,7 @@ function ChoreRow({ chore }) {
 // ── Main widget ────────────────────────────────────────────────────────────────
 
 export function RemindersWidget() {
-  const chores = settings.chores ?? []
+  const chores = useEffectiveChores()
 
   return (
     <Card className="p-4 h-full">

@@ -26,6 +26,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_URL: /peter-home/
+          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
 
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@v4

@@ -17,6 +17,7 @@ import { settings } from '../config/settings'
 const DATA_PATH = `${import.meta.env.BASE_URL}data.json`.replace('//', '/')
 const GITHUB_REPO = 'willschreinerjr-cmd/peter-home'
 const DATA_FILE_PATH = 'public/data.json'
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN ?? ''
 
 // ── Runtime fetch (used by kiosk widgets) ─────────────────────────────────────
 export function useDashboardData() {
@@ -71,8 +72,9 @@ export function useEffectiveChores() {
  * @param {object} data   - { photos: [...] | null, workouts: [...] }
  * @param {string} token  - GitHub PAT
  */
-export async function saveToDashboard(data, token) {
-  if (!token) throw new Error('No GitHub token provided.')
+export async function saveToDashboard(data) {
+  const token = GITHUB_TOKEN
+  if (!token) throw new Error('GitHub token not configured. Ask Will to add VITE_GITHUB_TOKEN to the build secrets.')
 
   // 1. Fetch current file metadata to get the SHA (required for updates)
   const metaRes = await fetch(
@@ -148,8 +150,9 @@ function resizeToDataUrl(file, maxW = 1400) {
  * @param {string} token  - GitHub PAT
  * @returns {Promise<string>} permanent GitHub Pages URL
  */
-export async function uploadPhoto(file, token) {
-  if (!token) throw new Error('No GitHub token provided.')
+export async function uploadPhoto(file) {
+  const token = GITHUB_TOKEN
+  if (!token) throw new Error('GitHub token not configured.')
 
   // Resize + compress
   const dataUrl = await resizeToDataUrl(file)

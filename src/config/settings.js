@@ -153,7 +153,51 @@ export const settings = {
   //   'bimonthly'            — months: array of 0-based month numbers
   //   'biweekly'             — every other week (fixed reference cycle)
   //
-  chores: [],   // Add chores from the mobile editor or settings.js
+  chores: [
+    {
+      id: 'trash',
+      label: 'Trash & Recycling',
+      icon: '🗑️',
+      scheduleType: 'weekly',
+      weekday: 1,          // Monday
+    },
+    {
+      id: 'bathrooms',
+      label: 'Clean Bathrooms',
+      icon: '🚿',
+      scheduleType: 'weekly',
+      weekday: 0,          // Sunday
+    },
+    {
+      id: 'vacuum',
+      label: 'Vacuum',
+      icon: '🧹',
+      scheduleType: 'weekly',
+      weekday: 3,          // Wednesday
+    },
+    {
+      id: 'smoker',
+      label: 'Clean Smoker',
+      icon: '🔥',
+      scheduleType: 'monthly-nth-weekday',
+      nth: 1,              // 1st Saturday of each month
+      weekday: 6,
+    },
+    {
+      id: 'windows',
+      label: 'Clean Windows',
+      icon: '🪟',
+      scheduleType: 'bimonthly',
+      months: [0, 2, 4, 6, 8, 10],  // Jan, Mar, May, Jul, Sep, Nov
+    },
+    {
+      id: 'floors',
+      label: 'Wash Floors',
+      icon: '🧽',
+      scheduleType: 'biweekly',
+      referenceDate: '2026-07-07',   // last known wash date — adjust as needed
+    },
+  ],
 
   // ── QUOTES ────────────────────────────────────────────────────
   // Rotates daily. Add your own favorite quotes!

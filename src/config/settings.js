@@ -156,46 +156,52 @@ export const settings = {
   chores: [
     {
       id: 'trash',
-      label: 'Trash & Recycling',
+      text: 'Trash & Recycling',
       icon: '🗑️',
       scheduleType: 'weekly',
       weekday: 1,          // Monday
+      detail: 'Every Monday',
     },
     {
       id: 'bathrooms',
-      label: 'Clean Bathrooms',
+      text: 'Clean Bathrooms',
       icon: '🚿',
       scheduleType: 'weekly',
       weekday: 0,          // Sunday
+      detail: 'Every Sunday',
     },
     {
       id: 'vacuum',
-      label: 'Vacuum',
+      text: 'Vacuum',
       icon: '🧹',
       scheduleType: 'weekly',
       weekday: 3,          // Wednesday
+      detail: 'Every Wednesday',
     },
     {
       id: 'smoker',
-      label: 'Clean Smoker',
+      text: 'Clean Smoker',
       icon: '🔥',
       scheduleType: 'monthly-nth-weekday',
       nth: 1,              // 1st Saturday of each month
       weekday: 6,
+      detail: '1st Saturday of each month',
     },
     {
       id: 'windows',
-      label: 'Clean Windows',
+      text: 'Clean Windows',
       icon: '🪟',
       scheduleType: 'bimonthly',
       months: [0, 2, 4, 6, 8, 10],  // Jan, Mar, May, Jul, Sep, Nov
+      detail: 'Every other month',
     },
     {
       id: 'floors',
-      label: 'Wash Floors',
+      text: 'Wash Floors',
       icon: '🧽',
       scheduleType: 'biweekly',
-      referenceDate: '2026-07-07',   // last known wash date — adjust as needed
+      referenceDate: '2026-07-07',
+      detail: 'Every other week',
     },
   ],
 

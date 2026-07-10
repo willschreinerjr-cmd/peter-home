@@ -19,7 +19,7 @@ const NTH      = ['1st','2nd','3rd','4th']
 
 function readJson(key, fallback) {
   try { const v = localStorage.getItem(key); if (v !== null) return JSON.parse(v) } catch {}
-  return fallback
+  return fallback  // returns fallback (null here) when key not set
 }
 function writeJson(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)) } catch {}
@@ -384,10 +384,10 @@ function PushButton({ photos, workouts, tasks, chores }) {
 // ---------------------------------------------------------------------------
 
 export function MobileView() {
-  const [photos,   setPhotos]   = useState(() => readJson(DRAFT_PHOTOS_KEY,   []))
-  const [workouts, setWorkouts] = useState(() => readJson(DRAFT_WORKOUTS_KEY, []))
-  const [tasks,    setTasks]    = useState(() => readJson(DRAFT_TASKS_KEY,    []))
-  const [chores,   setChores]   = useState(() => readJson(DRAFT_CHORES_KEY,   []))
+  const [photos,   setPhotos]   = useState(() => readJson(DRAFT_PHOTOS_KEY,   null) ?? (settings.photos        ?? []))
+  const [workouts, setWorkouts] = useState(() => readJson(DRAFT_WORKOUTS_KEY, null) ?? [])
+  const [tasks,    setTasks]    = useState(() => readJson(DRAFT_TASKS_KEY,    null) ?? (settings.defaultTasks ?? []))
+  const [chores,   setChores]   = useState(() => readJson(DRAFT_CHORES_KEY,   null) ?? (settings.chores       ?? []))
 
   const [addPhoto,   setAddPhoto]   = useState(false)
   const [addWorkout, setAddWorkout] = useState(false)

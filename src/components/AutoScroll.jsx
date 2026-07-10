@@ -22,7 +22,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 
-const PX_PER_SECOND = 22  // scroll speed — lower = slower / more ambient
+const PX_PER_SECOND = 12  // scroll speed — lower = slower / more ambient
 
 export function AutoScroll({ children, className = '', style = {} }) {
   const outerRef = useRef(null)

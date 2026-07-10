@@ -83,13 +83,11 @@ export const settings = {
   // IMPORTANT: Change  webcal://  to  https://  in the URL before pasting.
   // Example:  https://p01-caldav.icloud.com/published/2/YOUR_CALENDAR_ID
   //
-  appleCalendarEnabled: false,
-  appleCalendarIcsUrl: 'https://p01-caldav.icloud.com/published/2/YOUR_CALENDAR_ID',
+  appleCalendarEnabled: true,
+  appleCalendarIcsUrl: 'YOUR_APPLE_CALENDAR_ICS_URL',
 
-  // CORS Proxy (only needed if your browser blocks the iCal URL).
-  // Set to: 'https://api.allorigins.win/get?url='
-  // Leave empty ('') to try fetching the URL directly first.
-  corsProxy: '',
+  // CORS Proxy (required for iCal — browser can't fetch iCloud directly).
+  corsProxy: 'https://api.allorigins.win/get?url=',
 
   // ── GOOGLE CALENDAR ──────────────────────────────────────────
   // STEP 1: Read the "Google Calendar Setup" section in README.md.

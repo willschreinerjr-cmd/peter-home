@@ -16,9 +16,9 @@
  * own localStorage — it is never sent anywhere except GitHub.com.
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { settings } from '../config/settings'
-import { saveToDashboard } from '../hooks/useDashboardData'
+import { saveToDashboard, uploadPhoto } from '../hooks/useDashboardData'
 
 const DRAFT_PHOTOS_KEY   = 'peter_draft_photos_v2'
 const DRAFT_WORKOUTS_KEY = 'peter_draft_workouts_v2'
@@ -122,17 +122,67 @@ function PhotoRow({ photo, onDelete }) {
   )
 }
 
-function AddPhotoForm({ onAdd, onCancel }) {
+function AddPhotoForm({ onAdd, onCancel, token }) {
   const [url,setUrl]=useState('')
   const [title,setTitle]=useState('')
   const [caption,setCaption]=useState('')
+  const [uploading,setUploading]=useState(false)
+  const [uploadErr,setUploadErr]=useState('')
+  const fileRef=useRef()
+
+  const handleFile=async(e)=>{
+    const file=e.target.files?.[0]; if(!file) return
+    setUploadErr('')
+    if(!token){setUploadErr('Save your GitHub token first — needed to upload photos.');return}
+    setUploading(true)
+    try{
+      const photoUrl=await uploadPhoto(file,token)
+      setUrl(photoUrl)
+      if(!title) setTitle(file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' '))
+    }catch(err){ setUploadErr(err.message) }
+    finally{ setUploading(false); e.target.value='' }
+  }
+
   const submit=()=>{ const u=url.trim(); if(!u) return; onAdd({id:uid(),url:u,title:title.trim(),caption:caption.trim()}); setUrl('');setTitle('');setCaption('') }
+
   return (
     <AddFormWrap>
-      <Input label="Image URL *" value={url} onChange={setUrl} placeholder="https://..." hint="Any image link — Unsplash, Google Photos, iCloud, etc." />
+      {/* Hidden native file input — triggers Apple Photos picker on iOS */}
+      <input ref={fileRef} type="file" accept="image/*" style={{display:'none'}} onChange={handleFile} />
+
+      {/* Camera-roll upload button */}
+      <button
+        onClick={()=>fileRef.current?.click()}
+        disabled={uploading}
+        style={{ width:'100%', padding:'13px', borderRadius:'10px', border:`1px solid rgba(200,169,110,0.35)`, background:'rgba(200,169,110,0.08)', color:uploading?dim:gold, fontSize:'0.88rem', fontWeight:700, cursor:uploading?'not-allowed':'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:8, letterSpacing:'0.02em' }}
+      >
+        {uploading ? '⏳ Uploading...' : '📷  Choose from Camera Roll'}
+      </button>
+
+      {uploadErr && <p style={{fontSize:'0.68rem',color:'#f87171'}}>{uploadErr}</p>}
+
+      {/* URL preview thumbnail (shown once a URL is set) */}
+      {url && (
+        <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+          <div style={{ width:48,height:48,flexShrink:0,borderRadius:8,overflow:'hidden',border:`1px solid ${bdr}` }}>
+            <img src={url} alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+          </div>
+          <p style={{fontSize:'0.65rem',color:dim,flex:1,wordBreak:'break-all',lineHeight:1.4}}>{url}</p>
+          <DeleteBtn onClick={()=>setUrl('')} />
+        </div>
+      )}
+
+      {/* Divider + manual URL fallback */}
+      <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+        <div style={{flex:1,height:1,background:'rgba(180,108,42,0.15)'}} />
+        <span style={{fontSize:'0.60rem',color:dimmer,letterSpacing:'0.06em'}}>OR PASTE A URL</span>
+        <div style={{flex:1,height:1,background:'rgba(180,108,42,0.15)'}} />
+      </div>
+      <Input value={url} onChange={setUrl} placeholder="https://..." />
+
       <Input label="Title" value={title} onChange={setTitle} placeholder="e.g. Summer at the cabin" />
       <Input label="Caption" value={caption} onChange={setCaption} placeholder="Optional subtitle" />
-      <div style={{ display:'flex', gap:8 }}><Btn onClick={submit} variant="primary" disabled={!url.trim()}>Add Photo</Btn><Btn onClick={onCancel} variant="ghost">Cancel</Btn></div>
+      <div style={{ display:'flex', gap:8 }}><Btn onClick={submit} variant="primary" disabled={!url.trim()||uploading}>Add Photo</Btn><Btn onClick={onCancel} variant="ghost">Cancel</Btn></div>
     </AddFormWrap>
   )
 }
@@ -245,7 +295,7 @@ export function MobileView() {
           {photos.length===0 && !addPhoto && <p style={{ padding:'18px 16px', fontSize:'0.78rem', color:dimmer, textAlign:'center' }}>No photos yet — tap below to add your first</p>}
           {photos.map(p=><PhotoRow key={p.id} photo={p} onDelete={id=>setPhotos(prev=>prev.filter(x=>x.id!==id))} />)}
           {addPhoto
-            ? <AddPhotoForm onAdd={p=>{setPhotos(prev=>[...prev,p]);setAddPhoto(false)}} onCancel={()=>setAddPhoto(false)} />
+            ? <AddPhotoForm token={token} onAdd={p=>{setPhotos(prev=>[...prev,p]);setAddPhoto(false)}} onCancel={()=>setAddPhoto(false)} />
             : <div style={{ padding:'10px 16px' }}><Btn onClick={()=>setAddPhoto(true)}>+ Add Photo</Btn></div>}
         </Card>
 

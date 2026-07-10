@@ -118,16 +118,19 @@ export const settings = {
   photoIntervalSeconds: 12,
   photos: [
     {
+      id: 'placeholder-1',
       url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80',
       title: 'Add your own photos',
       caption: 'Edit src/config/settings.js → photos to add personal pictures',
     },
     {
+      id: 'placeholder-2',
       url: 'https://images.unsplash.com/photo-1439853949212-36089f36a4b8?w=1400&q=80',
       title: 'Replace with family photos',
       caption: 'Drop images in /public/ and reference them as \'./your-photo.jpg\'',
     },
     {
+      id: 'placeholder-3',
       url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1400&q=80',
       title: '',
       caption: '',

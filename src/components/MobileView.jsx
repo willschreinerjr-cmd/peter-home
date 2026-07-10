@@ -115,7 +115,9 @@ function PhotoRow({ photo, onDelete }) {
           <p style={{ fontSize:'0.83rem', color:cream, fontWeight:500, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{photo.title||'Photo'}</p>
           {photo.caption && <p style={{ fontSize:'0.68rem', color:dim, marginTop:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{photo.caption}</p>}
         </div>
-        <DeleteBtn onClick={()=>onDelete(photo.id)} />
+        <button onClick={()=>onDelete(photo.id)} style={{ flexShrink:0, padding:'6px 12px', borderRadius:'7px', border:'1px solid rgba(248,113,113,0.35)', background:'rgba(248,113,113,0.08)', color:'#f87171', fontSize:'0.72rem', fontWeight:600, cursor:'pointer', letterSpacing:'0.03em' }}>
+          Remove
+        </button>
       </div>
       <Divider />
     </>

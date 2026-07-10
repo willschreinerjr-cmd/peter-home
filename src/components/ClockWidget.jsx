@@ -21,7 +21,6 @@ function getDailyQuote() {
 
 export function ClockWidget() {
   const [now, setNow] = useState(dayjs())
-  const quote = useMemo(getDailyQuote, [])
 
   useEffect(() => {
     const id = setInterval(() => setNow(dayjs()), 1000)
@@ -80,20 +79,6 @@ export function ClockWidget() {
         {dayName}, {dateStr}
       </p>
 
-      {/* Daily quote — faint gold, italic, below date */}
-      {quote && (
-        <p
-          className="mt-4 font-light italic leading-snug"
-          style={{
-            fontSize:   'clamp(0.58rem, 0.8vw, 0.74rem)',
-            color:      'rgba(200,169,110,0.42)',
-            maxWidth:   '400px',
-            textShadow: '0 1px 8px rgba(0,0,0,0.5)',
-          }}
-        >
-          &ldquo;{quote.text}&rdquo;&ensp;&mdash;&ensp;{quote.author}
-        </p>
-      )}
     </div>
   )
 }

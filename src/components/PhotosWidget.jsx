@@ -10,9 +10,10 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { settings } from '../config/settings'
+import { useEffectivePhotos } from '../hooks/useDashboardData'
 
 export function PhotosWidget() {
-  const photos   = settings.photos ?? []
+  const photos   = useEffectivePhotos()
   const interval = (settings.photoIntervalSeconds ?? 12) * 1000
 
   const [idx,  setIdx]  = useState(0)

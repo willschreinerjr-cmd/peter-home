@@ -143,14 +143,7 @@ export const settings = {
   // To reset all tasks to unchecked, clear localStorage in DevTools
   // or change the IDs of any tasks you want to reset.
   //
-  defaultTasks: [
-    { id: 't1', text: 'Check morning emails',          done: false },
-    { id: 't2', text: 'Daily workout',                  done: false },
-    { id: 't3', text: 'Review grocery list',            done: false },
-    { id: 't4', text: 'Evening walk',                   done: false },
-    { id: 't5', text: 'Read for 30 minutes',            done: false },
-    { id: 't6', text: 'Plan tomorrow',                  done: false },
-  ],
+  defaultTasks: [],   // Add tasks from the mobile editor or settings.js
 
   // ── CHORES ────────────────────────────────────────────────────
   // Recurring house chores. The dashboard automatically calculates
@@ -162,56 +155,7 @@ export const settings = {
   //   'bimonthly'            — months: array of 0-based month numbers
   //   'biweekly'             — every other week (fixed reference cycle)
   //
-  chores: [
-    {
-      id: 'ch1',
-      text:         'Trash & Recycling',
-      icon:         '🗑️',
-      detail:       'Every Monday',
-      scheduleType: 'weekly',
-      weekday:      1,
-    },
-    {
-      id: 'ch2',
-      text:         'Clean Bathrooms',
-      icon:         '🚿',
-      detail:       'Every Sunday',
-      scheduleType: 'weekly',
-      weekday:      0,
-    },
-    {
-      id: 'ch3',
-      text:         'Vacuum',
-      icon:         '🧹',
-      detail:       'Every Wednesday',
-      scheduleType: 'weekly',
-      weekday:      3,
-    },
-    {
-      id: 'ch4',
-      text:         'Clean Smoker',
-      icon:         '🔥',
-      detail:       '1st Saturday of each month',
-      scheduleType: 'monthly-nth-weekday',
-      nth:          1,
-      weekday:      6,
-    },
-    {
-      id: 'ch5',
-      text:         'Clean Windows',
-      icon:         '🪟',
-      detail:       'Every other month',
-      scheduleType: 'bimonthly',
-      months:       [0, 2, 4, 6, 8, 10],  // Jan Mar May Jul Sep Nov
-    },
-    {
-      id: 'ch6',
-      text:         'Wash Floors',
-      icon:         '🧽',
-      detail:       'Every other week',
-      scheduleType: 'biweekly',
-    },
-  ],
+  chores: [],   // Add chores from the mobile editor or settings.js
 
   // ── QUOTES ────────────────────────────────────────────────────
   // Rotates daily. Add your own favorite quotes!
